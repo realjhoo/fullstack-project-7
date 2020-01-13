@@ -33,16 +33,3 @@ export default class SearchForm extends Component {
     );
   }
 }
-
-/* 
-const SearchForm = () => (
-  <form className="search-form">
-    <input type="search" name="search" placeholder="Search" required />
-    <button type="submit" className="search-button">
-      <img src={searchIcon} alt="Search Icon" />
-    </button>
-  </form>
-);
-
-export default SearchForm;
-*/

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class NavBar extends Component {
   state = {
@@ -20,50 +21,25 @@ export default class NavBar extends Component {
       <nav className="main-nav">
         <ul>
           <li>
-            {/* <a onClick={this.handleSubmit}>Cows</a> */}
-            <a onClick={this.handleSubmit}>Cows</a>
+            <Link to="#" onClick={this.handleSubmit}>
+              Cows
+            </Link>
           </li>
           <li>
-            <a onClick={this.handleSubmit}>Dogs</a>
+            <Link to="#" onClick={this.handleSubmit}>
+              Dogs
+            </Link>
           </li>
           <li>
-            <a onClick={this.handleSubmit}>Birds</a>
+            <Link to="#" onClick={this.handleSubmit}>
+              Birds
+            </Link>
+          </li>
+          <li>
+            <Link to="#">Testing Link</Link>
           </li>
         </ul>
       </nav>
     );
   }
 }
-
-// export default NavBar;
-
-/*)      <form className="search-form" onSubmit={this.handleSubmit}>
-        <input
-          type="search"
-          onChange={this.onSearchChange}
-          name="search"
-          placeholder="Search"
-          required
-        />
-        <button type="submit" className="search-button">
-          <img src={searchIcon} alt="Search Icon" />
-        </button>
-      </form>
-    */
-// const NavBar = () => (
-//   <nav className="main-nav">
-//     <ul>
-//       <li>
-//         <a href="http://api.giphy.com/v1/gifs/search?q=cats&limit=24&api_key=dc6zaTOxFJmzC">
-//           Cats
-//         </a>
-//       </li>
-//       <li>
-//         <a href="#">Dogs</a>
-//       </li>
-//       <li>
-//         <a href="#">Computers</a>
-//       </li>
-//     </ul>
-//   </nav>
-// );
