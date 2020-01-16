@@ -1,24 +1,37 @@
-import React from "react";
+import React, { Component } from "react";
 import Image from "./Image";
 import NoResults from "./NoResults";
 
-const ImageUL = props => {
-  const results = props.data;
-  let images;
-  if (results.length > 0) {
-    images = results.map(image => (
-      <Image url={image.images.fixed_height.url} key={image.id} />
-    ));
-  } else {
-    images = <NoResults />;
-  }
+class ImageUL extends Component {
+  render() {
+    let images = this.props.data;
+    if (images.length > 0) {
+      images = images.map(photo => {
+        return (
+          <Image
+            key={photo.id}
+            id={photo.id}
+            farm={photo.farm}
+            secret={photo.secret}
+            server={photo.server}
+            alt={photo.title}
+          />
+        );
+      });
+    } else {
+      if (this.props.loading) {
+        return <h2>Loading...</h2>;
+      }
+      return <NoResults />;
+    }
 
-  return (
-    <div className="photo-container">
-      <h2>Results</h2>
-      <ul>{images}</ul>
-    </div>
-  );
-};
+    return (
+      <div className="photo-container">
+        <h2>Results</h2>
+        <ul>{images}</ul>
+      </div>
+    );
+  }
+}
 
 export default ImageUL;

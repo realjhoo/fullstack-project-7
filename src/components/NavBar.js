@@ -1,19 +1,28 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Route, NavLink, Link } from "react-router-dom";
+import Trump from "./search/Trump";
+import Cows from "./search/Cows";
+import Dogs from "./search/Dogs";
+import Cats from "./search/Cats";
 
-export default class NavBar extends Component {
+class NavBar extends Component {
   state = {
     searchText: ""
   };
 
   handleSubmit = e => {
+    let sSearchText = e.target.innerText;
+    // this.setState({ searchText: sSearchText });
     this.setState({ searchText: e.target.innerText });
-    if (this.searchText == null) {
-      this.state.searchText = e.target.innerText;
+    if (this.searchText === null || this.searchText === undefined) {
+      // sSearchText = e.target.innerText;
+      // sometimes it needs a second chance
+      //  this.state.searchText = sSearchText;
+      this.setState({ searchText: e.target.innerText });
     }
-    console.log(this.state.searchText);
-    console.log(e.target.innerText);
+    console.log("Search: " + this.state.searchText);
     this.props.onSearch(this.state.searchText);
+    // this.setState({ searchText: "" });
   };
 
   render() {
@@ -21,25 +30,32 @@ export default class NavBar extends Component {
       <nav className="main-nav">
         <ul>
           <li>
-            <Link to="#" onClick={this.handleSubmit}>
+            <Link to="/search/Cows" onClick={this.handleSubmit}>
               Cows
             </Link>
           </li>
           <li>
-            <Link to="#" onClick={this.handleSubmit}>
+            <Link to="/search/Dogs" onClick={this.handleSubmit}>
               Dogs
             </Link>
           </li>
           <li>
-            <Link to="#" onClick={this.handleSubmit}>
-              Birds
+            <Link to="/search/Cats" onClick={this.handleSubmit}>
+              Cats
             </Link>
           </li>
           <li>
-            <Link to="#">Testing Link</Link>
+            <Link to="/search/Trump" onClick={this.handleSubmit}>
+              Trump
+            </Link>
           </li>
         </ul>
+        {/* <Route exact path="/Cows" component={Cows} /> */}
+        {/* <Route exact path="/Dogs" component={Dogs} /> */}
+        {/* <Route exact path="/Cats" component={Cats} /> */}
+        {/* <Route exact path="/Trump" component={Trump} /> */}
       </nav>
     );
   }
 }
+export default NavBar;

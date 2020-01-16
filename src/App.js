@@ -1,31 +1,34 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import "./css/index.css";
 import SearchForm from "./components/SearchForm";
 import NavBar from "./components/NavBar";
 import ImageUL from "./components/ImageUL";
 import AppTitle from "./components/AppTitle";
+import apiKey from "./components/config";
+import NotFound from "./components/NotFound";
 
-export default class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      images: [],
-      loading: true
-    };
-  }
+class App extends Component {
+  //  constructor(props) {
+  //   super(props);
+  //  this.state = {
+  state = {
+    imageData: [],
+    loading: true
+  };
+  // }
 
   componentDidMount() {
     this.doSearch();
   }
 
-  doSearch = (query = "cats+dogs+computers") => {
-    fetch(
-      `http://api.giphy.com/v1/gifs/search?q=${query}&limit=24&api_key=dc6zaTOxFJmzC`
-    )
+  doSearch = (query = "airplanes") => {
+    const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1&content_type=1`;
+    console.log("URL: " + url);
+    fetch(url)
       .then(response => response.json())
       .then(responseData => {
-        this.setState({ images: responseData.data, loading: false });
+        this.setState({ imageData: responseData.photos.photo, loading: false });
       })
       .catch(error => {
         console.log("Hey... something didnt work!", error);
@@ -34,36 +37,18 @@ export default class App extends Component {
 
   render() {
     let allHail = "Hail Thunar!";
-    console.log(this.state.images);
-
     return (
-      <div className="container">
-        <BrowserRouter>
-          {/* App Title */}
+      <BrowserRouter>
+        <div className="container">
           <AppTitle title="React Photo Gallery App" />
-          <Route
-            path="/title"
-            render={() => <AppTitle title="React Photo Gallery App" />}
-          />
-
-          {/* Search component */}
           <SearchForm onSearch={this.doSearch} />
-
-          {/* Nav component */}
           <NavBar onSearch={this.doSearch} />
-
-          {/* Photo Component */}
-          <div className="photo-container">
-            {this.state.loading ? (
-              <p>Loading...</p>
-            ) : (
-              <ImageUL data={this.state.images} />
-            )}
-          </div>
-
-          <p>{allHail}</p>
-        </BrowserRouter>
-      </div>
+          <ImageUL data={this.state.imageData} />
+        </div>
+        <p>{allHail}</p>
+      </BrowserRouter>
     );
   }
 }
+
+export default App;

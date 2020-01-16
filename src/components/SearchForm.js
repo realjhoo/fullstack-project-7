@@ -1,18 +1,24 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router";
 import searchIcon from "../search.svg";
 
-export default class SearchForm extends Component {
+class SearchForm extends Component {
   state = {
     searchText: ""
   };
 
   onSearchChange = e => {
-    this.setState({ searchText: e.target.value });
+    this.setState({ searchText: e.target.value.toLowerCase() });
   };
 
   handleSubmit = e => {
     e.preventDefault();
+    const { history } = this.props;
     this.props.onSearch(this.state.searchText);
+    let query = this.query.value;
+    let path = `/search/${query}`;
+    // this.props.history.push(path);
+    history.push(path);
     e.currentTarget.reset();
   };
 
@@ -25,6 +31,9 @@ export default class SearchForm extends Component {
           name="search"
           placeholder="Search"
           required
+          ref={input => {
+            this.query = input;
+          }}
         />
         <button type="submit" className="search-button">
           <img src={searchIcon} alt="Search Icon" />
@@ -33,3 +42,4 @@ export default class SearchForm extends Component {
     );
   }
 }
+export default withRouter(SearchForm);
