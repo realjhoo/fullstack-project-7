@@ -16,6 +16,10 @@ class SearchForm extends Component {
     const { history } = this.props;
     this.props.onSearch(this.state.searchText);
     let query = this.query.value;
+    if (query === null || query === undefined) {
+      query = "";
+    }
+
     let path = `/search/${query}`;
     // this.props.history.push(path);
     history.push(path);
@@ -23,22 +27,30 @@ class SearchForm extends Component {
   };
 
   render() {
+    let search_feedback = this.state.searchText;
+    if (search_feedback) {
+      search_feedback = `Current search: ${this.state.searchText}`;
+    }
+
     return (
-      <form className="search-form" onSubmit={this.handleSubmit}>
-        <input
-          type="search"
-          onChange={this.onSearchChange}
-          name="search"
-          placeholder="Search"
-          required
-          ref={input => {
-            this.query = input;
-          }}
-        />
-        <button type="submit" className="search-button">
-          <img src={searchIcon} alt="Search Icon" />
-        </button>
-      </form>
+      <div>
+        <form className="search-form" onSubmit={this.handleSubmit}>
+          <input
+            type="search"
+            onChange={this.onSearchChange}
+            name="search"
+            placeholder="Search"
+            required
+            ref={input => {
+              this.query = input;
+            }}
+          />
+          <button type="submit" className="search-button">
+            <img src={searchIcon} alt="Search Icon" />
+          </button>
+        </form>
+        <p>{search_feedback}</p>
+      </div>
     );
   }
 }

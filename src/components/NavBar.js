@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Route, NavLink, Link } from "react-router-dom";
-import Trump from "./search/Trump";
-import Cows from "./search/Cows";
-import Dogs from "./search/Dogs";
-import Cats from "./search/Cats";
+import { NavLink } from "react-router-dom";
+// import Trump from "./search/Trump";
+// import Cows from "./search/Cows";
+// import Dogs from "./search/Dogs";
+// import Cats from "./search/Cats";
 
 class NavBar extends Component {
   state = {
@@ -12,17 +12,15 @@ class NavBar extends Component {
 
   handleSubmit = e => {
     let sSearchText = e.target.innerText;
-    // this.setState({ searchText: sSearchText });
     this.setState({ searchText: e.target.innerText });
     if (this.searchText === null || this.searchText === undefined) {
-      // sSearchText = e.target.innerText;
-      // sometimes it needs a second chance
-      //  this.state.searchText = sSearchText;
-      this.setState({ searchText: e.target.innerText });
+      // the DOM renders before the value of searchText changes
+      // by manupulating state directly, this delay doesnt happen
+      // and errors are avoided
+      this.state.searchText = sSearchText;
     }
     console.log("Search: " + this.state.searchText);
     this.props.onSearch(this.state.searchText);
-    // this.setState({ searchText: "" });
   };
 
   render() {
@@ -30,24 +28,24 @@ class NavBar extends Component {
       <nav className="main-nav">
         <ul>
           <li>
-            <Link to="/search/Cows" onClick={this.handleSubmit}>
+            <NavLink to="/search/Cows" onClick={this.handleSubmit}>
               Cows
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/search/Dogs" onClick={this.handleSubmit}>
+            <NavLink to="/search/Dogs" onClick={this.handleSubmit}>
               Dogs
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/search/Cats" onClick={this.handleSubmit}>
+            <NavLink to="/search/Cats" onClick={this.handleSubmit}>
               Cats
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/search/Trump" onClick={this.handleSubmit}>
+            <NavLink to="/search/Trump" onClick={this.handleSubmit}>
               Trump
-            </Link>
+            </NavLink>
           </li>
         </ul>
         {/* <Route exact path="/Cows" component={Cows} /> */}

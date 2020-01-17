@@ -1,22 +1,18 @@
 import React, { Component } from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import "./css/index.css";
 import SearchForm from "./components/SearchForm";
 import NavBar from "./components/NavBar";
 import ImageUL from "./components/ImageUL";
 import AppTitle from "./components/AppTitle";
 import apiKey from "./components/config";
-import NotFound from "./components/NotFound";
+// import NotFound from "./components/NotFound";
 
 class App extends Component {
-  //  constructor(props) {
-  //   super(props);
-  //  this.state = {
   state = {
     imageData: [],
     loading: true
   };
-  // }
 
   componentDidMount() {
     this.doSearch();
