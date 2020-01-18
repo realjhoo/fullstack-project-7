@@ -14,12 +14,12 @@ class NavBar extends Component {
     let sSearchText = e.target.innerText;
     this.setState({ searchText: e.target.innerText });
     if (this.searchText === null || this.searchText === undefined) {
-      // the DOM renders before the value of searchText changes
-      // by manupulating state directly, this delay doesnt happen
+      // the DOM renders before the value of searchText changes.
+      // By manupulating state directly, this delay doesnt happen
       // and errors are avoided
       this.state.searchText = sSearchText;
     }
-    console.log("Search: " + this.state.searchText);
+    // console.log("Search: " + this.state.searchText);
     this.props.onSearch(this.state.searchText);
   };
 
