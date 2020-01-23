@@ -21,7 +21,6 @@ class SearchForm extends Component {
     }
 
     let path = `/search/${query}`;
-    // this.props.history.push(path);
     history.push(path);
     e.currentTarget.reset();
   };

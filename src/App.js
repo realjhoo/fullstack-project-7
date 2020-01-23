@@ -1,18 +1,21 @@
 import React, { Component } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./css/index.css";
 import SearchForm from "./components/SearchForm";
 import NavBar from "./components/NavBar";
 import ImageUL from "./components/ImageUL";
 import AppTitle from "./components/AppTitle";
 import apiKey from "./components/config";
-// import NotFound from "./components/NotFound";
+import NotFound from "./components/NotFound";
 
 class App extends Component {
-  state = {
-    imageData: [],
-    loading: true
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      imageData: [],
+      loading: true
+    };
+  }
 
   componentDidMount() {
     this.doSearch();
@@ -31,15 +34,37 @@ class App extends Component {
       });
   };
 
-  render() {
-    let allHail = "Hail Thunar!";
+  render(props) {
+    let allHail = "I built this";
     return (
       <BrowserRouter>
         <div className="container">
           <AppTitle title="React Photo Gallery App" />
           <SearchForm onSearch={this.doSearch} />
           <NavBar onSearch={this.doSearch} />
-          <ImageUL data={this.state.imageData} />
+          <Switch>
+            <Route exact path="/" />
+            />
+            <Route
+              path="/search/puppies"
+              render={() => <Redirect to="/search/puppies" />}
+            />
+            <Route
+              path="/search/kittens"
+              render={() => <Redirect to="/search/kittens" />}
+            />
+            <Route
+              path="/search/ponies"
+              render={() => <Redirect to="/search/ponies" />}
+            />
+            <Route
+              path="/search/helicopters"
+              render={() => <Redirect to="/search/helicopters" />}
+            />
+            <Route path="/search/" />
+            <Route component={NotFound} />
+          </Switch>
+          <ImageUL data={this.state.imageData} {...props} />
         </div>
         <p>{allHail}</p>
       </BrowserRouter>

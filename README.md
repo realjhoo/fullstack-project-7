@@ -1,3 +1,17 @@
+# Project 7 - React Photo Gallery App
+
+## Purpose
+
+This Team Treehouse Full Stack Dev project uses React to display a searchable photo gallery obtained via the Flickr API.
+
+## API Key
+
+In order to run this React app, you must request a non-commercial API key of your very own from Flickr. You can learn more about this at: https://www.flickr.com/services/apps/create/apply
+
+### config.js Format
+
+`const apiKey = "your apiKey goes here"; export default apiKey;`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

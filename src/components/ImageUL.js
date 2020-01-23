@@ -3,7 +3,7 @@ import Image from "./Image";
 import NoResults from "./NoResults";
 
 class ImageUL extends Component {
-  render() {
+  render(props) {
     let images = this.props.data;
     if (images.length > 0) {
       images = images.map(photo => {
