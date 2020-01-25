@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./css/index.css";
 import SearchForm from "./components/SearchForm";
 import NavBar from "./components/NavBar";
@@ -13,7 +13,8 @@ class App extends Component {
     super(props);
     this.state = {
       imageData: [],
-      loading: true
+      loading: true,
+      queryState: ""
     };
   }
 
@@ -21,50 +22,73 @@ class App extends Component {
     this.doSearch();
   }
 
-  doSearch = (query = "airplanes") => {
+  doSearch = (query = "biplanes") => {
     const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1&content_type=1`;
     console.log("URL: " + url);
     fetch(url)
       .then(response => response.json())
       .then(responseData => {
-        this.setState({ imageData: responseData.photos.photo, loading: false });
+        this.setState({
+          imageData: responseData.photos.photo,
+          loading: false,
+          queryState: query
+        });
       })
       .catch(error => {
         console.log("Hey... something didnt work!", error);
       });
+    this.setState({ loading: true });
   };
 
   render(props) {
-    let allHail = "I built this";
+    let allHail = "React is an abomination";
     return (
       <BrowserRouter>
         <div className="container">
           <AppTitle title="React Photo Gallery App" />
-          <SearchForm onSearch={this.doSearch} />
-          <NavBar onSearch={this.doSearch} />
+          <SearchForm onSearch={this.doSearch} loading={this.state.loading} />
+          <NavBar navSearch={this.doSearch} />
           <Switch>
-            <Route exact path="/" />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <ImageUL
+                  {...props}
+                  data={this.state.imageData}
+                  loading={this.state.loading}
+                  query={this.state.queryState}
+                  navSearch={this.doSearch}
+                />
+              )}
             />
             <Route
-              path="/search/puppies"
-              render={() => <Redirect to="/search/puppies" />}
+              exact
+              path="/search/:query"
+              render={props => (
+                <ImageUL
+                  {...props}
+                  data={this.state.imageData}
+                  loading={this.state.loading}
+                  query={this.state.queryState}
+                  navSearch={this.doSearch}
+                />
+              )}
             />
             <Route
-              path="/search/kittens"
-              render={() => <Redirect to="/search/kittens" />}
+              path="/(puppies|kittens|ponies|helicopters)"
+              render={props => (
+                <ImageUL
+                  {...props}
+                  data={this.state.imageData}
+                  loading={this.state.loading}
+                  query={this.state.queryState}
+                  navSearch={this.doSearch}
+                />
+              )}
             />
-            <Route
-              path="/search/ponies"
-              render={() => <Redirect to="/search/ponies" />}
-            />
-            <Route
-              path="/search/helicopters"
-              render={() => <Redirect to="/search/helicopters" />}
-            />
-            <Route path="/search/" />
             <Route component={NotFound} />
           </Switch>
-          <ImageUL data={this.state.imageData} {...props} />
         </div>
         <p>{allHail}</p>
       </BrowserRouter>

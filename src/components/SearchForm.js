@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router";
+import { withRouter } from "react-router-dom";
 import searchIcon from "../search.svg";
 
 class SearchForm extends Component {
@@ -8,20 +8,15 @@ class SearchForm extends Component {
   };
 
   onSearchChange = e => {
-    this.setState({ searchText: e.target.value.toLowerCase() });
+    this.setState({ searchText: e.target.value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    const { history } = this.props;
-    this.props.onSearch(this.state.searchText);
     let query = this.query.value;
-    if (query === null || query === undefined) {
-      query = "";
-    }
-
     let path = `/search/${query}`;
-    history.push(path);
+    this.props.history.push(path);
+    this.props.onSearch(this.state.searchText);
     e.currentTarget.reset();
   };
 
@@ -29,6 +24,8 @@ class SearchForm extends Component {
     let search_feedback = this.state.searchText;
     if (search_feedback) {
       search_feedback = `Current search: ${this.state.searchText}`;
+    } else {
+      search_feedback = "";
     }
 
     return (
@@ -48,7 +45,7 @@ class SearchForm extends Component {
             <img src={searchIcon} alt="Search Icon" />
           </button>
         </form>
-        <p>{search_feedback}</p>
+        {/* <p>{search_feedback}</p> */}
       </div>
     );
   }

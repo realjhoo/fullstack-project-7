@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { withRouter } from "react-router-dom";
 import Image from "./Image";
 import NoResults from "./NoResults";
 
 class ImageUL extends Component {
-  render(props) {
+  render() {
     let images = this.props.data;
+
     if (images.length > 0) {
       images = images.map(photo => {
         return (
@@ -19,19 +21,22 @@ class ImageUL extends Component {
         );
       });
     } else {
-      if (this.props.loading) {
-        return <h2>Loading...</h2>;
-      }
-      return <NoResults />;
+      images = <NoResults />;
     }
 
     return (
       <div className="photo-container">
-        <h2>Results</h2>
-        <ul>{images}</ul>
+        {this.props.loading ? (
+          <h2>Loading...</h2>
+        ) : (
+          <Fragment>
+            <h2>Results</h2>
+            <ul>{images}</ul>
+          </Fragment>
+        )}
       </div>
     );
   }
 }
 
-export default ImageUL;
+export default withRouter(ImageUL);
