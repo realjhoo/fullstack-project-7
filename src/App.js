@@ -30,7 +30,7 @@ class App extends Component {
       .then(responseData => {
         this.setState({
           imageData: responseData.photos.photo,
-          loading: true,
+          loading: false,
           queryState: query
         });
       })
