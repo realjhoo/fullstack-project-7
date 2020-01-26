@@ -79,7 +79,43 @@ class App extends Component {
               )}
             />
             <Route
-              path="/(puppies|kittens|ponies|helicopters)"
+              path="/search/puppies"
+              render={props => (
+                <ImageUL
+                  {...props}
+                  data={this.state.imageData}
+                  loading={this.state.loading}
+                  query={this.state.queryState}
+                  navSearch={this.doSearch}
+                />
+              )}
+            />
+            <Route
+              path="/search/kittens"
+              render={props => (
+                <ImageUL
+                  {...props}
+                  data={this.state.imageData}
+                  loading={this.state.loading}
+                  query={this.state.queryState}
+                  navSearch={this.doSearch}
+                />
+              )}
+            />
+            <Route
+              path="/search/ponies"
+              render={props => (
+                <ImageUL
+                  {...props}
+                  data={this.state.imageData}
+                  loading={this.state.loading}
+                  query={this.state.queryState}
+                  navSearch={this.doSearch}
+                />
+              )}
+            />
+            <Route
+              path="/search/helicopters"
               render={props => (
                 <ImageUL
                   {...props}
