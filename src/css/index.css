@@ -6,13 +6,14 @@ body {
 
 h1 {
   font-size: 2.1rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.2rem;
   text-transform: capitalize;
 }
 
 h2 {
   font-size: 2em;
-  margin: 52px 0 40px;
+  margin: 12px 0 0 0;
+  /* margin: 52px 0 40px; */
   text-transform: capitalize;
 }
 
@@ -72,6 +73,11 @@ input {
 .main-nav a:hover,
 .search-form button:hover {
   background-color: #275270;
+}
+
+.current-search {
+  font-size: 1.4rem;
+  text-transform: capitalize;
 }
 
 .photo-container ul {

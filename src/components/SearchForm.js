@@ -16,18 +16,11 @@ class SearchForm extends Component {
     let query = this.query.value;
     let path = `/search/${query}`;
     this.props.history.push(path);
-    this.props.onSearch(this.state.searchText);
+    this.props.onSearch(this.query.value);
     e.currentTarget.reset();
   };
 
   render() {
-    let search_feedback = this.state.searchText;
-    if (search_feedback) {
-      search_feedback = `Current search: ${this.state.searchText}`;
-    } else {
-      search_feedback = "";
-    }
-
     return (
       <div>
         <form className="search-form" onSubmit={this.handleSubmit}>
@@ -45,7 +38,6 @@ class SearchForm extends Component {
             <img src={searchIcon} alt="Search Icon" />
           </button>
         </form>
-        {/* <p>{search_feedback}</p> */}
       </div>
     );
   }

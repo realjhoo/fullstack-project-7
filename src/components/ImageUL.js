@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import Image from "./Image";
 import NoResults from "./NoResults";
@@ -29,10 +29,10 @@ class ImageUL extends Component {
         {this.props.loading ? (
           <h2>Loading...</h2>
         ) : (
-          <Fragment>
+          <div>
             <h2>Results</h2>
             <ul>{images}</ul>
-          </Fragment>
+          </div>
         )}
       </div>
     );

@@ -9,8 +9,8 @@ import apiKey from "./components/config";
 import NotFound from "./components/NotFound";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       imageData: [],
       loading: true,
@@ -24,7 +24,7 @@ class App extends Component {
 
   doSearch = (query = "biplanes") => {
     const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1&content_type=1`;
-    console.log("URL: " + url);
+    // console.log("URL: " + url);
     fetch(url)
       .then(response => response.json())
       .then(responseData => {
@@ -40,14 +40,17 @@ class App extends Component {
     this.setState({ loading: true });
   };
 
-  render(props) {
-    let allHail = "React is an abomination";
+  render() {
+    let allHail = "React is Tough Stuff";
     return (
       <BrowserRouter>
         <div className="container">
           <AppTitle title="React Photo Gallery App" />
           <SearchForm onSearch={this.doSearch} loading={this.state.loading} />
           <NavBar navSearch={this.doSearch} />
+          <span className="current-search">
+            Current Search: {this.state.queryState}
+          </span>
           <Switch>
             <Route
               exact
